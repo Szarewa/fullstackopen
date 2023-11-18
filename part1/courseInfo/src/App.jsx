@@ -1,7 +1,9 @@
+import './App.css'
+
 const Header = (props) => { 
   const { name } = props; 
   return(
-    <h1>{props.course}</h1>
+    <h1 style={{color: 'green', borderBottom: '1px solid green'}}>{props.name}</h1>
   )
 }
 const Part = (props) => {
@@ -15,24 +17,22 @@ const Part = (props) => {
 
 const Total = (props) => {
   return(
-    <p>Total number of exercises: {props.sum}</p>
+    <h4>Total number of exercises: {props.sum}</h4>
   )
 }
 
 const Content = (props) => {
+  
   const { parts } = props
 
   const componentsHolder = () => {
-    for(let comp in parts){
-      if(typeof parts[comp] === 'object'){
-        let individualPart = []
-
-        for(let i in parts[comp]){
-          individualPart.push(<Part key={i} name={parts[comp][i].name} exercise={parts[comp][i].exercises} />)
-        }
-        return individualPart
+    let individualPart = []
+    for(let part in parts){
+      if(typeof parts[part] === 'object'){
+        individualPart.push(<Part key={part} name={parts[part].name} exercise={parts[part].exercises} />)
       }
     } 
+    return individualPart
   }
   
   return(
@@ -61,9 +61,15 @@ const App = (props) => {
     ]
   }
 
+  const sum = course.parts.reduce((acc, currPart) => acc + currPart.exercises, 0);
+
   return (
-    <div>
-      <Content parts={course} />
+    <div className="courseInfo">
+      <Header name={course.name} />
+      <hr/>
+      <Content parts={course.parts} />
+      <hr/>
+      <Total sum={sum} />
     </div>
   )
 }
