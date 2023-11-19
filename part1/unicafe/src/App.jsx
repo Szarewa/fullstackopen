@@ -8,12 +8,18 @@ const Button = ({ handleClick, feedback }) => {
   )
 }
 
-const App = (props) => {
-  const [good, setGood] = useState(0.)
-  const [neutral, setNeutral] = useState(0)
-  const [bad, setBad] = useState(0)
+const StatisticLine = () => {
+  return (
+    <div></div>
+  )
+}
 
-  const total = good + neutral + bad
+const Statistics = ({ feedbacks }) =>{
+  const good = feedbacks[0]
+  const neutral = feedbacks[1]
+  const bad = feedbacks[2]
+
+  const total = feedbacks.reduce((acc, fdbck) => acc + fdbck, 0)
   const average = (total/3).toFixed(2)
   let percentageGood
 
@@ -24,14 +30,12 @@ const App = (props) => {
     percentageGood = 0
   }
 
-  return (
-    <div className="unicafe">
-      <h3>Give your feedback</h3>
-      <Button handleClick={() => setGood(good + 1)} feedback='Good' />
-      <Button handleClick={() =>setNeutral(neutral + 1)} feedback='Neutral' />
-      <Button handleClick={() =>setBad(bad + 1)} feedback='Bad' />
-      <hr/>
-
+  if(total === 0){
+    return 'No feedback given yet...'
+  }
+  
+  return(
+    <div>
       <h3>Number of feedbacks</h3>
       <p>Good: {good}</p>
       <p>Neutral: {neutral}</p>
@@ -41,6 +45,25 @@ const App = (props) => {
       <p>Total feedback: {total}</p>
       <p>Average feedback: {average}</p>
       <p>Positive feedback: {percentageGood}</p>
+    </div>
+  )
+}
+
+const App = (props) => {
+  const [good, setGood] = useState(0.)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+  const feedbacks = [good, neutral, bad]
+
+  return (
+    <div className="unicafe">
+      <h3>Give your feedback</h3>
+      <Button handleClick={() => setGood(good + 1)} feedback='Good' />
+      <Button handleClick={() =>setNeutral(neutral + 1)} feedback='Neutral' />
+      <Button handleClick={() =>setBad(bad + 1)} feedback='Bad' />
+      <hr/>
+      <Statistics feedbacks={feedbacks} />
     </div>
   )
 }
