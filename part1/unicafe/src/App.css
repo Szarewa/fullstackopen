@@ -1,9 +1,11 @@
-.courseInfo {
+.unicafe {
     width: 70%;
-    margin: 1em auto;
-    padding: 2em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    margin: 0.5em auto;
+    padding: 1em 2em;
+    border: 1px solid green;
+}
+h3 {
+    text-align: center;
+    color: green;
+    font-weight: bold;
 }
