@@ -16,10 +16,27 @@ const Button = ({ handleClick, feedback }) => {
   )
 }
 
-const StatisticsLine = ({ text, value }) => {
+const StatisticsLine = ({ details }) => {
+  const detail = details.map((detail, i) => {
+    return(
+      <tr key={i}>
+        <td>{detail.text}</td>
+        <td>{detail.value}</td>
+      </tr>
+    )
+  })
+
   return(
     <div>
-      <p>{text}: {value}</p>
+      <table>
+        <thead><tr>
+         <th>Feedback Type</th>
+         <th>Value</th>
+        </tr></thead>
+        <tbody>
+          {detail}
+        </tbody>
+      </table>
     </div>
   )
 }
@@ -41,19 +58,22 @@ const Statistics = ({ feedbackValue }) => {
   }
 
   if(total === 0){
-    return 'No feedback given yet...'
+    return 'No feedback given yet. Click a button to send...'
   }
 
+  const details = [
+    {text: 'Good', value: good},
+    {text: 'Neutral', value: neutral},
+    {text: 'Bad', value: bad},
+    {text: 'Total', value: total},
+    {text: 'Average', value: average},
+    {text: 'Percentage Good', value: percentageGood}
+  ]
+
   return(
-    <div>
+    <div id='mainDiv'>
       <h3>Feedbacks</h3>
-      <StatisticsLine text='Good' value={good} />
-      <StatisticsLine text='Neutral' value={neutral} />
-      <StatisticsLine text='Bad' value={bad} />
-      <h3>Feedback Statistics</h3>
-      <StatisticsLine text='Total' value={total} />
-      <StatisticsLine text='Average' value={average} />
-      <StatisticsLine text='Percentage Good' value={percentageGood} />
+      <StatisticsLine details={details} />
     </div>
   )
 }
@@ -71,32 +91,36 @@ const App = (props) => {
 
   const feedbackValue = [good, neutral, bad]
 
-const handleClick = () => {
-  const setValue = () => {
-    if (event.target.textContent === 'Good') {
-      setGood(good => good +1)
-    }
-    
+  const handleClick = () => {
+    const setValue = () => {
+      if (event.target.textContent === 'Good') {
+        setGood(good => good +1)
+      }
+      
 
-    if (event.target.textContent === 'Neutral') {
-      setNeutral(neutral => neutral +1)
-    }
-    
+      if (event.target.textContent === 'Neutral') {
+        setNeutral(neutral => neutral +1)
+      }
+      
 
-    if (event.target.textContent === 'Bad') {
-      setBad(bad => bad +1)
+      if (event.target.textContent === 'Bad') {
+        setBad(bad => bad +1)
+      }
+      
     }
-    
+    return setValue()
   }
-  return setValue()
-}
 
   return (
-    <div className="unicafe">
-      <Button handleClick={handleClick} feedback={feedback} />
-      <hr/>
-      <Statistics feedbackValue={feedbackValue} />
-      <hr/>
+    <div className='mainDiv'>
+      <h2 style={{color: 'green', fontWeight: 'bolder', textAlign: 'center'}}>Unicafe Feedback Portal</h2>
+      <div className="unicafe">
+        <h3>Send Feedback</h3>
+        <Button handleClick={handleClick} feedback={feedback} />
+        <hr/>
+        <Statistics feedbackValue={feedbackValue} />
+        <hr/>
+      </div>
     </div>
   )
 }
