@@ -22,18 +22,34 @@ const App = (props) => {
   ]
    
   const [selected, setSelected] = useState(0)
-
+  //create an array to hold the votes and fill it with zeros equal to the length of the anecdotes array
+  const [vote, setVote] = useState(new Array(anecdotes.length).fill(0))
+  
   const handleClick = () => {
     setSelected(Math.floor(Math.random() * anecdotes.length))
   }
+
+  const handleClickVoting = () => {
+   const newVote = [...vote]
+    newVote[selected] +=1
+    setVote(newVote)
+  }
+
+  const highestVote = Math.max(...vote)
+  const index = vote.findIndex(value => value === highestVote)
 
   return (
     <div>
       <h2>ANECDOTES</h2>
       <div className='anecdotes'>
-        {anecdotes[selected]}
+        <h3>{anecdotes[selected]}</h3>
+        <p>Number of Votes: {vote[selected]}</p>
         <hr/>
+        <button onClick={handleClickVoting}>Vote</button>
         <button onClick={handleClick}>Next Anecdote</button>
+        <p>Highest Votes goes to:</p>
+        <h3>{anecdotes[index]}</h3>
+        <p>With {highestVote} votes.</p>
       </div>
     </div>
   )
