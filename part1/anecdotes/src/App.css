@@ -1,15 +1,17 @@
-.unicafe {
+.anecdotes {
     width: 70%;
     margin: 0.5em auto;
     padding: 1em 2em;
     border: 1px solid green;
 }
-h3 {
+h2 {
     text-align: center;
     color: green;
-    font-weight: bold;
+    font-weight: bolder;
 }
-table tbody tr {
-    border: 1px solid black;
+button {
     padding: 10px;
+    color: green;
+    font-weight: bold;
+    font-family: cursive;
 }
