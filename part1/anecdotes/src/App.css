@@ -1,0 +1,15 @@
+.unicafe {
+    width: 70%;
+    margin: 0.5em auto;
+    padding: 1em 2em;
+    border: 1px solid green;
+}
+h3 {
+    text-align: center;
+    color: green;
+    font-weight: bold;
+}
+table tbody tr {
+    border: 1px solid black;
+    padding: 10px;
+}
