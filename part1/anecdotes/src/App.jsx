@@ -1,13 +1,6 @@
 import './App.css'
 import { useState } from "react"
 
-const Button =(props) => {
-  //console.log(props.anecdotes)
-  return(
-    <div></div>
-  )
-}
-
 const App = (props) => {
 
   const anecdotes = [
@@ -25,17 +18,26 @@ const App = (props) => {
   //create an array to hold the votes and fill it with zeros equal to the length of the anecdotes array
   const [vote, setVote] = useState(new Array(anecdotes.length).fill(0))
   
+  //randomly select an anecdote
   const handleClick = () => {
     setSelected(Math.floor(Math.random() * anecdotes.length))
   }
 
+  //handle the voting event
   const handleClickVoting = () => {
+
+  //make a copy of the vote array
    const newVote = [...vote]
+   //increment the selected index's vote by one in the copied array
     newVote[selected] +=1
+    //set the vote array to the newVote
     setVote(newVote)
   }
 
+  //get the highest number of votes in the vote array
   const highestVote = Math.max(...vote)
+
+  //retur the index of the highest votes
   const index = vote.findIndex(value => value === highestVote)
 
   return (
