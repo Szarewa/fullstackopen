@@ -1,0 +1,9 @@
+.courseInfo {
+    width: 70%;
+    margin: 1em auto;
+    padding: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
