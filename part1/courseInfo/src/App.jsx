@@ -1,6 +1,7 @@
 import './App.css'
 
 const Header = (props) => { 
+  //props destructurinf
   const { name } = props; 
   return(
     <h1 style={{color: 'green', borderBottom: '1px solid green'}}>{props.name}</h1>
@@ -25,9 +26,13 @@ const Content = (props) => {
   
   const { parts } = props
 
+  //function to return the individual Parts component
   const componentsHolder = () => {
+    //an empty array to store the individual parts
     let individualPart = []
+    //looping through the parts to return a single part
     for(let part in parts){
+      //checking to see if the return part is an object with name and exercises
       if(typeof parts[part] === 'object'){
         individualPart.push(<Part key={part} name={parts[part].name} exercise={parts[part].exercises} />)
       }
@@ -61,6 +66,7 @@ const App = (props) => {
     ]
   }
 
+  //sum up the total number of exercises
   const sum = course.parts.reduce((acc, currPart) => acc + currPart.exercises, 0);
 
   return (
