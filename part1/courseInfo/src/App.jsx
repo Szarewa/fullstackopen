@@ -22,9 +22,7 @@ const Total = (props) => {
   )
 }
 
-const Content = (props) => {
-  
-  const { parts } = props
+const Content = ({ parts }) => {
 
   //function to return the individual Parts component
   const componentsHolder = () => {
@@ -32,10 +30,7 @@ const Content = (props) => {
     let individualPart = []
     //looping through the parts to return a single part
     for(let part in parts){
-      //checking to see if the return part is an object with name and exercises
-      if(typeof parts[part] === 'object'){
-        individualPart.push(<Part key={part} name={parts[part].name} exercise={parts[part].exercises} />)
-      }
+      individualPart.push(<Part key={part} name={parts[part].name} exercise={parts[part].exercises} />)
     } 
     return individualPart
   }

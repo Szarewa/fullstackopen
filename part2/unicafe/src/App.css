@@ -1,0 +1,27 @@
+.unicafe {
+    width: 70%;
+    margin: 0.5em auto;
+    padding: 1em 2em;
+    border: 1px solid green;
+}
+h3 {
+    color: green;
+    font-weight: bold;
+}
+
+button {
+    width: 30%;
+    margin: 5px;
+    padding: 10px;
+    color: green;
+    font-weight: bold;
+    font-family: cursive;
+}
+
+table { 
+    width: 100%;
+}
+table, th, td {
+    border: 1px solid black;
+    padding: 10px;
+}
