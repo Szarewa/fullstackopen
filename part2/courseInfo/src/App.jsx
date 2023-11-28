@@ -1,6 +1,6 @@
 import Course from './components/Course'
 
-const App = (props) => {
+const App = () => {
   const courses = [
     {
       name: 'Half Stack application development',
