@@ -1,8 +1,6 @@
-import './Forms.css'
-
 const Forms = ({ handleSubmit, handleInputChange, handlePhoneInput }) => {
     return (
-        <div>
+        <div className='form'>
             <form onSubmit={handleSubmit}>
                 <p>name: <input onChange={handleInputChange} /></p>
                 <p>Phone: <input onChange={handlePhoneInput} /></p>
