@@ -3,7 +3,7 @@ import Search from './components/Search'
 import Forms from './components/Forms'
 import PersonData from './components/PersonData'
 import './App.css'
-import axios from 'axios'
+import contactServ from './services/phonebook'
 
 const App = () => {
   
@@ -13,15 +13,14 @@ const App = () => {
   const [searchParam, setSearchParam] = useState('')
 
   useEffect(() => {
-    console.log('Effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('Promise fulfilled')
-        setPersons(response.data)
+    //console.log('Effect')
+    contactServ
+      .getData()
+      .then(returnedResp => {
+        setPersons(returnedResp)
       })
   }, [])
-  console.log('rendered', persons.length, 'contacts')
+  //console.log('rendered', persons.length, 'contacts')
 
   const handleSubmit = (e) => {
     e.preventDefault()
