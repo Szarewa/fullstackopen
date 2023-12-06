@@ -1,8 +1,14 @@
-const PersonData = (props) => {
+import './personData.css'
+
+const PersonData = ({ persons, deletePerson }) => {
     return(
       <div>
-        {props.persons.map((person, i) => (
-          <p key={i}>{person.name}: {person.number}</p>
+        {persons.map((person, i) => (
+          <p key={i}>{person.name}: {person.number} 
+            <span>
+              <button onClick={deletePerson} className="deleteBtn">Delete</button>
+            </span>
+          </p>
         ))}
       </div>
     )

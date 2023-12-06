@@ -54,6 +54,12 @@ const App = () => {
     setSearchParam(e.target.value)
   }
 
+  const deletePerson = () => {
+    const confirmBox = confirm('Are you sure you want to delete..')
+    if(confirmBox){console.log('Wow...')}
+    else{console.log('Ohh...')}
+  }
+
   const filteredName = searchParam 
     ? persons.filter(person => person.name.toLowerCase().includes(searchParam.toLowerCase()) ) : persons
 
@@ -67,7 +73,7 @@ const App = () => {
       <Forms handleSubmit={handleSubmit} handleInputChange={handleInputChange} handlePhoneInput={handlePhoneInput} />
 
       <h3>Numbers</h3>
-      <PersonData persons={filteredName} />
+      <PersonData persons={filteredName} deletePerson={deletePerson} />
     </div>
   )
 }

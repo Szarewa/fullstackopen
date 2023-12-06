@@ -1,0 +1,14 @@
+.deleteBtn {
+    background-color: blue;
+    color: azure;
+    font-size: 12px;
+    margin-left: 2px; 
+    border: none;
+}
+
+.deleteBtn:hover {
+    cursor: pointer;
+    background-color: red;
+    color: antiquewhite;
+    font-family: cursive;
+}
