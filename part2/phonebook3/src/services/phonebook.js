@@ -7,4 +7,14 @@ const getData = () => {
     return makeReq.then(resp => resp.data)
 }
 
-export default { getData }
+const deleteData = (id) => {
+    const makeReq = axios.delete(`${url}/${id}`)
+    return makeReq.then(resp => resp.data)
+}
+
+const addData = (newData) => {
+    const makeReq = axios.post(url, newData)
+    return makeReq.then(resp => resp.data)
+}
+
+export default { getData, deleteData, addData }

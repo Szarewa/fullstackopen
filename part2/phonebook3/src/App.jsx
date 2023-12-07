@@ -33,8 +33,12 @@ const App = () => {
     }
     else {
       const updatedPersonsArray = [...persons, {name: newName, number: newPhone, id: persons.length + 1}]
-      setPersons(updatedPersonsArray)
-      alert('Contact added...')
+
+      contactServ
+        .addData(updatedPersonsArray)
+        .then(returnedResp => {
+          setPersons(returnedResp)
+        })
     }
 
     setNewName('')
@@ -54,10 +58,15 @@ const App = () => {
     setSearchParam(e.target.value)
   }
 
-  const deletePerson = () => {
-    const confirmBox = confirm('Are you sure you want to delete..')
-    if(confirmBox){console.log('Wow...')}
-    else{console.log('Ohh...')}
+  const deletePerson = (id, user) => {
+    const confirmBox = confirm('Delete ' + user + '?')
+    if(confirmBox){
+      contactServ
+        .deleteData(id)
+        .then(returnedResp => {
+          setPersons(returnedResp)
+        })
+    }
   }
 
   const filteredName = searchParam 
