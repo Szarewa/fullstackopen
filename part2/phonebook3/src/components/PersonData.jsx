@@ -1,9 +1,11 @@
 import './personData.css'
 
 const PersonData = ({ persons, deletePerson }) => {
+
   const handleDeletePerson = (id, user) => {
     deletePerson(id, user)
   }
+  
   return(
     <div>
       {persons.map((person, i) => (

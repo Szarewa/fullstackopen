@@ -13,45 +13,51 @@ const App = () => {
   const [searchParam, setSearchParam] = useState('')
 
   useEffect(() => {
-    //console.log('Effect')
     contactServ
       .getData()
       .then(returnedResp => {
         setPersons(returnedResp)
       })
   }, [])
-  //console.log('rendered', persons.length, 'contacts')
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    
-    const person = persons.map(person => person.name)
-    const nameInPerson = person.includes(newName)
-
-    if(nameInPerson){
-      alert(`${newName} is already added...`)
-    }
-    else {
-      const updatedPersonsArray = [...persons, {name: newName, number: newPhone, id: persons.length + 1}]
-
-      contactServ
-        .addData(updatedPersonsArray)
-        .then(returnedResp => {
-          setPersons(returnedResp)
-        })
-    }
-
-    setNewName('')
-    setNewPhone('')
-  }
 
   const handleInputChange = (e) => {
     const newData = e.target.value
     setNewName(newData)
   }
+
   const handlePhoneInput= (e) => {
     const newPhoneNumber = e.target.value
     setNewPhone(newPhoneNumber)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    
+    const person = persons.map(person => person.name)
+
+    const nameInPerson = person.includes(newName)
+    const numberInPerson = person.includes(newPhone)
+
+    if(nameInPerson){
+      alert(`${newName} is already added...`)
+    }
+    else {
+
+      const newDetail = {name: newName, number: newPhone, id: persons.length + 1}
+      const updatedPersonsArray = [...persons, newDetail]
+      const ua = {...persons, newDetail}
+
+      console.log(updatedPersonsArray)
+      console.log(ua)
+
+      contactServ
+        .createData(ua)
+        .then(returnedResp => setPersons(returnedResp))
+        .catch(e => console.log('Error...' + e))
+    }
+
+    setNewName(' ')
+    setNewPhone(' ')
   }
 
   const handleSearch = (e) => {
@@ -63,9 +69,8 @@ const App = () => {
     if(confirmBox){
       contactServ
         .deleteData(id)
-        .then(returnedResp => {
-          setPersons(returnedResp)
-        })
+        .then(returnedResp => setPersons(returnedResp))
+        .catch(e => console.log('Error...' + e))
     }
   }
 
