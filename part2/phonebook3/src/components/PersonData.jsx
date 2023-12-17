@@ -8,13 +8,16 @@ const PersonData = ({ persons, deletePerson }) => {
   
   return(
     <div>
-      {persons.map((person, i) => (
-        <p key={i}>{person.name}: {person.number} 
-          <span>
-            <button onClick={() => handleDeletePerson(person.id, person.name)} className="deleteBtn">Delete</button>
-          </span>
-        </p>
-      ))}
+      {
+        persons.length === 0 ? (<p>No contact to display</p>):
+        (persons.map((person, i) => (
+          <p key={i}>{person.name}: {person.number} 
+            <span>
+              <button onClick={() => handleDeletePerson(person.id, person.name)} className="deleteBtn">Delete</button>
+            </span>
+          </p>
+        ))
+      )}
     </div>
   )
 }

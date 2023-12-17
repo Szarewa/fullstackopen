@@ -33,27 +33,41 @@ const App = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     
-    const person = persons.map(person => person.name)
+    const NameOfPerson = persons.map(person => person.name)
+    const numberOfPerson = persons.map(person => person.number)
 
-    const nameInPerson = person.includes(newName)
-    const numberInPerson = person.includes(newPhone)
+    const nameIsTrue= NameOfPerson.includes(newName)
+    const numberIsTrue = numberOfPerson.includes(newPhone)
 
-    if(nameInPerson){
+    if(nameIsTrue && !numberIsTrue){
+      const getConfirmation = 
+        confirm(`${newName} is already added. Do you want to replace the old number with the new one?`)
+
+      if(getConfirmation){
+        const personUpdate = persons.find(person => person.name === newName)
+
+        if(personUpdate){
+          personUpdate.number = newPhone
+
+          contactServ
+            .updateData(personUpdate.id, personUpdate)
+            .then(returnedResp => setPersons([...persons]))
+            .catch('Failed to update, try later...')
+        }
+      }
+    }
+    else if(nameIsTrue){
       alert(`${newName} is already added...`)
     }
     else {
 
       const newDetail = {name: newName, number: newPhone, id: persons.length + 1}
-      const updatedPersonsArray = [...persons, newDetail]
-      const ua = {...persons, newDetail}
-
-      console.log(updatedPersonsArray)
-      console.log(ua)
+      //const updatedPersonsArray = [...persons, newDetail]
 
       contactServ
-        .createData(ua)
-        .then(returnedResp => setPersons(returnedResp))
-        .catch(e => console.log('Error...' + e))
+        .createData(newDetail)
+        .then(returnedResp => setPersons([...persons, newDetail]))
+        .catch('Failed to Add, try later...')
     }
 
     setNewName(' ')
@@ -69,8 +83,11 @@ const App = () => {
     if(confirmBox){
       contactServ
         .deleteData(id)
-        .then(returnedResp => setPersons(returnedResp))
-        .catch(e => console.log('Error...' + e))
+        .then(() => {
+          const updated = persons.filter(person => person.id !== id)
+          setPersons(updated)
+        })
+        .catch('Error deleting, try later...')
     }
   }
 

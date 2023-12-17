@@ -12,8 +12,8 @@ const getData = () => {
     return makeReq.then(resp => resp.data)
 }
 
-const addData = (newData) => {
-    const makeReq = axios.put(url, newData)
+const updateData = (id, newData) => {
+    const makeReq = axios.put(`${url}/${id}`, newData)
     return makeReq.then(resp => resp.data)
 }
 
@@ -22,4 +22,4 @@ const deleteData = (id) => {
     return makeReq.then(resp => resp.data)
 }
 
-export default { createData, getData, addData, deleteData }
+export default { createData, getData, updateData, deleteData }
