@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useState, useEffect } from "react"
+import Display from './components/Display'
 
 
 const App = () => {
@@ -36,33 +37,7 @@ const App = () => {
       <hr/>
       <input type='search' placeholder='Type to search...' onChange={onSearchChange}/>
       <hr/>
-      <div id="displayBox">
-        {
-          filteredData.length === 0 
-          ? ('No data to display')
-          : filteredData.length > 10
-          ? ('Too many matches, specify another filter')
-          : filteredData.length > 1 && filteredData.length <= 10
-          ? (filteredData.map((country, i) => (
-              <p key={i}>{country.name.common}</p>
-            ))) 
-          : (filteredData.map((country, i) => (
-              <div key={i}>
-                <h2>{country.name.common}</h2>
-                <p>Capital city: {country.capital}</p>
-                <p>Area: {country.area}</p>
-                <p>Population: {country.population}</p>
-                <p>Languages:</p>
-                  <ul>
-                    {Object.keys(country.languages).map(key => (
-                      <li key={key}>{country.languages[key]}</li>
-                    ))}
-                  </ul>
-              <img src={`${country.flags.png}`} alt={`${country.flag}`} width="200px" height="200px" />
-              </div>
-            ))) 
-        } 
-      </div>
+      <Display filteredData={filteredData} />
     </div>
   )
 }
