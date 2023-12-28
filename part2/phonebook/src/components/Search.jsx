@@ -1,4 +1,4 @@
-const Search = ({ persons, handleSearch }) =>{
+const Search = ({ handleSearch }) =>{
     return(
         <div>
             <input onChange={handleSearch} type="search" placeholder='Search...'/>

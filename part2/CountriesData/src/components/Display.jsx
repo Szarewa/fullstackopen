@@ -1,10 +1,10 @@
 import { useState } from "react"
 
 const Display = ({ filteredData }) => {
-    const [selectedCountry, setSelectedCountry] = useState(null)
+    const [searchedCountry, setSearchedCountry] = useState(null)
 
     const showDetails = (searchedCountry) => {
-        setSelectedCountry(searchedCountry)
+        setSearchedCountry(searchedCountry)
     }
 
     return(
@@ -25,19 +25,19 @@ const Display = ({ filteredData }) => {
                       </p>
                     ))}
                     <hr/>
-                    {selectedCountry && (
+                    {searchedCountry && (
                       <div>
-                        <h2>{selectedCountry.name.common}</h2>
-                        <p><b>Capital city:</b> {selectedCountry.capital}</p>
-                        <p><b>Area:</b> {selectedCountry.area}</p>
-                        <p><b>Population:</b> {selectedCountry.population}</p>
+                        <h2>{searchedCountry.name.common}</h2>
+                        <p><b>Capital city:</b> {searchedCountry.capital}</p>
+                        <p><b>Area:</b> {searchedCountry.area}</p>
+                        <p><b>Population:</b> {searchedCountry.population}</p>
                         <p><b>Languages:</b></p>
                         <ul>
-                          {Object.keys(selectedCountry.languages).map(key => (
-                            <li key={key}>{selectedCountry.languages[key]}</li>
+                          {Object.keys(searchedCountry.languages).map(key => (
+                            <li key={key}>{searchedCountry.languages[key]}</li>
                           ))}
                         </ul>
-                        <img src={`${selectedCountry.flags.png}`} alt={`${selectedCountry.flag}`} width="200px" height="200px" />
+                        <img src={`${searchedCountry.flags.png}`} alt={`${searchedCountry.flag}`} width="200px" height="200px" />
                       </div>
                     )}
                   </div>
