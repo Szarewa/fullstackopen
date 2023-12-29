@@ -12,6 +12,21 @@ app.get("/api/persons", (req, res) => {
     res.json(persons)
 })
 
+app.post('/api/persons', (req, res) => {
+    //const { name, number } = req.body
+
+    const id = Math.floor(Math.random() * 100 + 1)
+
+    const newPerson  = {
+        id: id,
+        name: 'Salman Aliyu',
+        number: '08069644170'
+    }
+
+    const updatedPersons = [...persons, newPerson]
+    res.send(updatedPersons)
+})
+
 app.get("/api/persons/:id", (req, res) => {
     const id = Number(req.params.id)
     const person = persons.filter(person => person.id === id)
