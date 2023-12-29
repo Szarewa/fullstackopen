@@ -11,6 +11,17 @@ const persons = [
 app.get("/api/persons", (req, res) => {
     res.json(persons)
 })
+app.get("/info", (req, res) => {
+    const numberOfPeople = persons.length
+    const timeOfRequest = new Date().toString()
+
+    //res.setHeader('Content-Type', 'text/plain')
+
+    res.send(
+        `<p>Phonebook has info for ${numberOfPeople} people</p>
+        <p>The request was made at: ${timeOfRequest}</p>`
+    )
+})
 
 const port = 3001
 app.listen(port, () => {
