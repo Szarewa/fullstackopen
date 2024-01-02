@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
 
+app.use(express.json())
+
 const persons = [
     { "id": 1, "name": "Arto Hellas", "number": "040-123456"},
     { "id": 2, "name": "Ada Lovelace", "number": "39-44-5323523"},
@@ -13,18 +15,32 @@ app.get("/api/persons", (req, res) => {
 })
 
 app.post('/api/persons', (req, res) => {
+
     //const { name, number } = req.body
+
+    const name = 'Arto Hellas'
+    const number = '123'
 
     const id = Math.floor(Math.random() * 100 + 1)
 
+    if(name === '' || number === ''){
+        return res.status(400).json({error: 'All fields are required'})
+    }
+
+    const nameInList = persons.some(person => person.name === name)
+
+    if(nameInList){
+        return res.status(400).json({ error: 'Name is already added.' })
+    }
+
     const newPerson  = {
-        id: id,
-        name: 'Salman Aliyu',
-        number: '08069644170'
+        id, 
+        name,
+        number
     }
 
     const updatedPersons = [...persons, newPerson]
-    res.send(updatedPersons)
+    res.status(200).json(updatedPersons)
 })
 
 app.get("/api/persons/:id", (req, res) => {
@@ -43,11 +59,8 @@ app.delete("/api/persons/:id", (req, res) => {
     const id = Number(req.params.id)
     const person = persons.filter(person => person.id !== id)
 
-    //res.status(204).end()
-
     if(person){
-        res.send(`The person with the id ${id} is removed from the list`)
-        res.status(404).end()
+        res.status(204).send(`The person with the id ${id} is removed from the list`)
     }
 })
 
@@ -59,7 +72,7 @@ app.get("/info", (req, res) => {
 
     res.send(
         `<p>Phonebook has info for ${numberOfPeople} people</p>
-        <p>The request was made at: ${timeOfRequest}</p>`
+        <p>The request was made: ${timeOfRequest}</p>`
     )
 })
 
