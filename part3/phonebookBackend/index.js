@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 
+app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
 const persons = [
@@ -16,10 +17,10 @@ app.get("/api/persons", (req, res) => {
 
 app.post('/api/persons', (req, res) => {
 
-    //const { name, number } = req.body
+    const { name, number } = req.body
 
-    const name = 'Arto Hellas'
-    const number = '123'
+    // const name = 'Arto Hellas'
+    // const number = '123'
 
     const id = Math.floor(Math.random() * 100 + 1)
 
@@ -39,8 +40,8 @@ app.post('/api/persons', (req, res) => {
         number
     }
 
-    const updatedPersons = [...persons, newPerson]
-    res.status(200).json(updatedPersons)
+    persons.push(newPerson)
+    res.status(200).json(newPerson)
 })
 
 app.get("/api/persons/:id", (req, res) => {
@@ -67,8 +68,6 @@ app.delete("/api/persons/:id", (req, res) => {
 app.get("/info", (req, res) => {
     const numberOfPeople = persons.length
     const timeOfRequest = new Date().toString()
-
-    //res.setHeader('Content-Type', 'text/plain')
 
     res.send(
         `<p>Phonebook has info for ${numberOfPeople} people</p>
