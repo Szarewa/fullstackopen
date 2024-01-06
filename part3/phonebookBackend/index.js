@@ -1,8 +1,12 @@
 const express = require('express')
+const morgan = require('morgan')
+
 const app = express()
+
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
+app.use(morgan('tiny'))
 
 const persons = [
     { "id": 1, "name": "Arto Hellas", "number": "040-123456"},
