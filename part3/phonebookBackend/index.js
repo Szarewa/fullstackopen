@@ -1,12 +1,28 @@
 const express = require('express')
 const morgan = require('morgan')
+const responseTime = require('response-time')
 
 const app = express()
 
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
-app.use(morgan('tiny'))
+app.use(responseTime())
+//app.use(morgan('tiny'))
+
+morgan.token('data', (req, res) => {
+    return [
+        req.method,
+        req.url,
+        res.statusCode,
+        res.getHeader['content-length'],
+        res.getHeader['response-time'] + ' ms'
+    ].join(' ')
+})
+
+const dataLog = morgan(':data')
+
+app.use(dataLog)
 
 const persons = [
     { "id": 1, "name": "Arto Hellas", "number": "040-123456"},
@@ -22,9 +38,6 @@ app.get("/api/persons", (req, res) => {
 app.post('/api/persons', (req, res) => {
 
     const { name, number } = req.body
-
-    // const name = 'Arto Hellas'
-    // const number = '123'
 
     const id = Math.floor(Math.random() * 100 + 1)
 
@@ -44,8 +57,10 @@ app.post('/api/persons', (req, res) => {
         number
     }
 
+    console.log(`${morgan['data'](req, res)} ${JSON.stringify(newPerson)}`)
+
     persons.push(newPerson)
-    res.status(200).json(newPerson)
+    res.status(200).json(persons)
 })
 
 app.get("/api/persons/:id", (req, res) => {
